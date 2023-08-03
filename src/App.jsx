@@ -5,8 +5,8 @@ import Landing from './components/header/Landing';
 import Posts from './components/posts/Posts';
 
 const client = contentful.createClient({
-  space: spaceId,
-  accessToken: process.env.accessToken,
+  space: import.meta.env.VITE_spaceKey,
+  accessToken: import.meta.env.VITE_accessKey,
   environment: 'master'
 })
 
