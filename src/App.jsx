@@ -4,6 +4,18 @@ import './App.css';
 import Landing from './components/header/Landing';
 import Posts from './components/posts/Posts';
 
+// required for live preview
+// this hook, requries the original entry data, serves as a ref point for tracking any changes made to that entry
+import { ContentfulLivePreview } from '@contentful/live-preview';
+import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
+
+ContentfulLivePreview.init({
+  locale: 'en-US', // This is required and allows you to set the locale once and have it reused throughout the preview
+  enableInspectorMode: true, // This allows you to toggle the inspector mode which is on by default
+  enableLiveUpdates: true, // This allows you to toggle the live updates which is on by default
+  debugMode: false, // This allows you to toggle the debug mode which is off by default
+});
+
 const client = contentful.createClient({
   space: import.meta.env.VITE_spaceKey || process.env.SPACE_KEY,
   accessToken: import.meta.env.VITE_accessKey || process.env.ACCESS_KEY,
@@ -43,13 +55,16 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
+  // this takes the original data as an argument, in my case it's posts.
+  const updatedPosts = useContentfulLiveUpdates(posts);
+
   return (
     <>
       <div className="holdingDiv">
         {header && <Landing title={header.fields.title} landingImage={header.fields.logo.fields.file.url} />}
       </div>
       <main>
-        {posts.map((post, index) => (
+        {updatedPosts.map((post, index) => (
           <Posts key={index} post={post} />
         ))}
       </main>
