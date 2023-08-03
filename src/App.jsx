@@ -53,21 +53,21 @@ function App() {
         // console.log(posts)
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [posts]);
 
   // this takes the original data as an argument, in my case it's posts.
   const updatedPosts = useContentfulLiveUpdates(posts);
 
   const inspectorProps = useContentfulInspectorMode();
+  console.log(header.sys.id)
 
   return (
     <>
       <div className="holdingDiv" 
       // This requires, entryId, fieldId and locale
       {...inspectorProps({
-        entryId: posts.sys.id,
+        entryId: header.sys.id,
         fieldId: "title",
-        
       })}
       >
         {header && <Landing title={header.fields.title} landingImage={header.fields.logo.fields.file.url} />}
