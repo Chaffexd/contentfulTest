@@ -7,7 +7,7 @@ import Posts from './components/posts/Posts';
 // required for live preview
 // this hook, requries the original entry data, serves as a ref point for tracking any changes made to that entry
 import { ContentfulLivePreview } from '@contentful/live-preview';
-import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
+import { useContentfulLiveUpdates, useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 ContentfulLivePreview.init({
   locale: 'en-US', // This is required and allows you to set the locale once and have it reused throughout the preview
@@ -58,9 +58,18 @@ function App() {
   // this takes the original data as an argument, in my case it's posts.
   const updatedPosts = useContentfulLiveUpdates(posts);
 
+  const inspectorProps = useContentfulInspectorMode();
+
   return (
     <>
-      <div className="holdingDiv">
+      <div className="holdingDiv" 
+      // This requires, entryId, fieldId and locale
+      {...inspectorProps({
+        entryId: posts.sys.id,
+        fieldId: "title",
+        
+      })}
+      >
         {header && <Landing title={header.fields.title} landingImage={header.fields.logo.fields.file.url} />}
       </div>
       <main>
