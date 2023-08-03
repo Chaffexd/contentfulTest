@@ -1,0 +1,37 @@
+body {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  width: 100vw;
+}
+
+.headerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.headerImg {
+  width: 250px;
+}
+
+.holdingDiv {
+  width: 80%;
+  margin: 0 auto;
+}
+
+main {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.blogPost {
+  height: 300px;
+  background-color: aquamarine;
+  border-radius: 15px;
+}
